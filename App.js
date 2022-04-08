@@ -5,19 +5,19 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./components/home/HomeScreen";
 
 const Stack = createNativeStackNavigator();
+
 export default function App({ props }) {
-  const [todo, setTodo] = useState();
+  const [todo, setTodo] = useState([""]);
 
   return (
     <NavigationContainer initialRouteName="Home">
       <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          //component={HomeScreen}
-          children={(props) => (
+        <Stack.Screen name="Home">
+          {(props) => (
             <HomeScreen
               {...props}
               todo={todo}
+              setTodo={setTodo}
               options={{
                 title: "Home",
                 headerStyle: { backgroundColor: "white" },
@@ -25,7 +25,7 @@ export default function App({ props }) {
               }}
             />
           )}
-        />
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

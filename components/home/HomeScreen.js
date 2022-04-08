@@ -1,7 +1,26 @@
-import { Button, ImageBackground, Text, TextInput, View } from "react-native";
+import {
+  ImageBackground,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import styles from "./styles";
+import { useState } from "react";
 
-const HomeScreen = () => {
+import TodoCard from "../todo/TodoCard";
+
+const HomeScreen = (props) => {
+  let [isEmpty, setIsEmpty] = useState(true);
+  const [task, setTask] = useState("");
+
+  const addTask = () => {
+    props.setTodo([...props.todo, task]);
+    setTask("");
+    setIsEmpty(false);
+  };
+
+  console.log(props.todo[1]);
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -9,10 +28,29 @@ const HomeScreen = () => {
         resizeMode="cover"
         style={styles.image}
       >
-        <Text>To-Do List</Text>
-        <TextInput></TextInput>
-        <Button title="Add"></Button>
-        <Text></Text>
+        <Text style={styles.headerText}>To-Do List</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Add Todo"
+            placeholderTextColor="#0067B1"
+            value={task}
+            onChangeText={(text) => setTask(text)}
+          ></TextInput>
+          <Pressable
+            style={styles.addButton}
+            onPress={() => {
+              addTask();
+            }}
+          >
+            <Text>Add</Text>
+          </Pressable>
+        </View>
+        {isEmpty ? null : (
+          <View style={styles.listContainer}>
+            <Text>{props.todo?.[0]}</Text>
+          </View>
+        )}
       </ImageBackground>
     </View>
   );
