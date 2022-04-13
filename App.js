@@ -7,7 +7,7 @@ import HomeScreen from "./components/home/HomeScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App({ props }) {
-  const [todo, setTodo] = useState([""]);
+  const [todo, setTodo] = useState([]);
 
   return (
     <NavigationContainer initialRouteName="Home">

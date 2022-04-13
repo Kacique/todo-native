@@ -17,11 +17,30 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: "90%",
-    height: "8%",
-    marginTop: "15%",
+    height: "60%",
+    marginTop: "10%",
     flexDirection: "column",
-    justifyContent: "flex-start",
+    //justifyContent: "flex-start",
+    //alignItems: "center",
+    //backgroundColor: "red",
+  },
+  flatListContainer: {
+    width: "100%",
+    paddingVertical: "8%",
+    marginBottom: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
+    //backgroundColor: "black",
+  },
+  flatList: {
+    width: "100%",
+    height: "45%",
+    //marginTop: "15%",
+    //flexDirection: "column",
+    //justifyContent: "flex-start",
+    //alignItems: "center",
+    //backgroundColor: "blue",
   },
   image: {
     flex: 1,
@@ -52,6 +71,18 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#000",
     borderRadius: 5,
+  },
+  deleteButton: {
+    backgroundColor: "#0067B1",
+  },
+  editButton: {
+    backgroundColor: "#0067B1",
+  },
+  completeButton: {
+    backgroundColor: "#0067B1",
+  },
+  flatText: {
+    fontSize: 18,
   },
 });
 

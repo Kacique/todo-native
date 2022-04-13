@@ -1,10 +1,11 @@
 import { Pressable, Text, TextInput, View } from "react-native";
 import styles from "./styles";
 
-const TodoCard = ({ textTodo, editTodo, deleteTodo, completeTodo }) => {
+const TodoCard = ({ textTodo, editTodo, deleteTodo, completeTodo, key }) => {
   return (
-    <View>
-      <Text>{textTodo}</Text>
+    <View style={styles.container}>
+      {key}
+      <Text style={styles.text}>{textTodo}</Text>
       <Pressable
         style={styles.editButton}
         onPress={() => {

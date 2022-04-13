@@ -4,7 +4,10 @@ import {
   Text,
   TextInput,
   View,
+  FlatList,
 } from "react-native";
+import { IconComponentProvider, Icon } from "@react-native-material/core";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import styles from "./styles";
 import { useState } from "react";
 
@@ -16,8 +19,23 @@ const HomeScreen = (props) => {
 
   const addTask = () => {
     props.setTodo([...props.todo, task]);
+    //resets TextInput
     setTask("");
     setIsEmpty(false);
+  };
+
+  const editTodo = () => {
+    console.log("Editing...");
+  };
+
+  const deleteTodo = (index) => {
+    let newTodo = [...props.todo];
+    newTodo.splice(index, 1);
+    props.setTodo(newTodo);
+  };
+
+  const completeTodo = () => {
+    console.log("Complete");
   };
 
   console.log(props.todo[1]);
@@ -43,12 +61,76 @@ const HomeScreen = (props) => {
               addTask();
             }}
           >
-            <Text>Add</Text>
+            <Text>
+              <IconComponentProvider IconComponent={MaterialCommunityIcons}>
+                <Icon name="plus-thick" size={24} color="red" />
+              </IconComponentProvider>
+            </Text>
           </Pressable>
         </View>
         {isEmpty ? null : (
           <View style={styles.listContainer}>
-            <Text>{props.todo?.[0]}</Text>
+            <FlatList
+              data={props.todo}
+              style={styles.flatList}
+              renderItem={({ item, index }) => (
+                <View key={index} style={styles.flatListContainer}>
+                  <Pressable
+                    style={styles.completeButton}
+                    onPress={() => {
+                      {
+                        completeTodo();
+                      }
+                    }}
+                  >
+                    <Text>
+                      <IconComponentProvider
+                        IconComponent={MaterialCommunityIcons}
+                      >
+                        <Icon name="border-all-variant" size={24} color="red" />
+                      </IconComponentProvider>
+                    </Text>
+                  </Pressable>
+
+                  <Text style={styles.flatText}>{item}</Text>
+
+                  <Pressable
+                    style={styles.editButton}
+                    onPress={() => {
+                      {
+                        editTodo();
+                      }
+                    }}
+                  >
+                    <Text>
+                      <IconComponentProvider
+                        IconComponent={MaterialCommunityIcons}
+                      >
+                        <Icon name="pencil" size={24} color="red" />
+                      </IconComponentProvider>
+                    </Text>
+                  </Pressable>
+
+                  <Pressable
+                    style={styles.deleteButton}
+                    onPress={() => {
+                      {
+                        deleteTodo();
+                      }
+                    }}
+                  >
+                    <Text>
+                      <IconComponentProvider
+                        IconComponent={MaterialCommunityIcons}
+                      >
+                        <Icon name="trash-can" size={24} color="red" />
+                      </IconComponentProvider>
+                    </Text>
+                  </Pressable>
+                </View>
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
           </View>
         )}
       </ImageBackground>
