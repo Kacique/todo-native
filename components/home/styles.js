@@ -81,8 +81,13 @@ const styles = StyleSheet.create({
   completeButton: {
     backgroundColor: "#0067B1",
   },
-  flatText: {
+  flatTextTrue: {
     fontSize: 18,
+    textDecorationLine: "line-through",
+  },
+  flatTextFalse: {
+    fontSize: 18,
+    textDecorationLine: "none",
   },
 });
 

@@ -15,6 +15,7 @@ import TodoCard from "../todo/TodoCard";
 
 const HomeScreen = (props) => {
   let [isEmpty, setIsEmpty] = useState(true);
+  let [isComplete, setIsComplete] = useState(false);
   const [task, setTask] = useState("");
 
   const addTask = () => {
@@ -35,10 +36,15 @@ const HomeScreen = (props) => {
   };
 
   const completeTodo = () => {
+    setIsComplete(false);
     console.log("Complete");
   };
 
-  console.log(props.todo[1]);
+  const resetTodo = () => {
+    setIsComplete(true);
+    console.log("Complete");
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -75,24 +81,49 @@ const HomeScreen = (props) => {
               style={styles.flatList}
               renderItem={({ item, index }) => (
                 <View key={index} style={styles.flatListContainer}>
-                  <Pressable
-                    style={styles.completeButton}
-                    onPress={() => {
-                      {
-                        completeTodo();
-                      }
-                    }}
-                  >
-                    <Text>
-                      <IconComponentProvider
-                        IconComponent={MaterialCommunityIcons}
-                      >
-                        <Icon name="border-all-variant" size={24} color="red" />
-                      </IconComponentProvider>
-                    </Text>
-                  </Pressable>
+                  {isComplete ? (
+                    <Pressable
+                      style={styles.completeButton}
+                      onPress={() => {
+                        {
+                          completeTodo();
+                        }
+                      }}
+                    >
+                      <Text>
+                        <IconComponentProvider
+                          IconComponent={MaterialCommunityIcons}
+                        >
+                          <Icon name="check-underline" size={24} color="red" />
+                        </IconComponentProvider>
+                      </Text>
+                    </Pressable>
+                  ) : (
+                    <Pressable
+                      style={styles.completeButton}
+                      onPress={() => {
+                        {
+                          resetTodo();
+                        }
+                      }}
+                    >
+                      <Text>
+                        <IconComponentProvider
+                          IconComponent={MaterialCommunityIcons}
+                        >
+                          <Icon name="square-outline" size={24} color="red" />
+                        </IconComponentProvider>
+                      </Text>
+                    </Pressable>
+                  )}
 
-                  <Text style={styles.flatText}>{item}</Text>
+                  <Text
+                    style={
+                      isComplete ? styles.flatTextTrue : styles.flatTextFalse
+                    }
+                  >
+                    {item}
+                  </Text>
 
                   <Pressable
                     style={styles.editButton}
