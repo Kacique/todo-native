@@ -5,18 +5,21 @@ import {
   TextInput,
   View,
   FlatList,
+  Modal,
 } from "react-native";
 import { IconComponentProvider, Icon } from "@react-native-material/core";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import styles from "./styles";
 import { useState } from "react";
-
-import TodoCard from "../todo/TodoCard";
+import CompleteButton from "../complete/CompleteButton";
+import EditTodo from "../edit/EditTodo";
 
 const HomeScreen = (props) => {
   let [isEmpty, setIsEmpty] = useState(true);
-  let [isComplete, setIsComplete] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [task, setTask] = useState("");
+  const [newTask, setNewTask] = useState("");
+  const [taskEdit, onChangeText] = useState(task);
 
   const addTask = () => {
     props.setTodo([...props.todo, task]);
@@ -24,9 +27,25 @@ const HomeScreen = (props) => {
     setTask("");
     setIsEmpty(false);
   };
+  /*
+  const editTodo = (index) => {
+    let newTodo = [...props.todo];
+    newTodo.splice(index, 1);
 
-  const editTodo = () => {
-    console.log("Editing...");
+    props.setTodo([...props.todo, newTask]);
+    setNewTask("");
+
+    setModalVisible(!modalVisible);
+  };
+*/
+
+  const editTodo = (index) => {
+    const todosCopy = [...props.todo];
+    todosCopy[index] = taskEdit;
+    props.setTodo(todosCopy);
+
+    onChangeText("");
+    setModalVisible(!modalVisible);
   };
 
   const deleteTodo = (index) => {
@@ -42,6 +61,7 @@ const HomeScreen = (props) => {
 
   const resetTodo = () => {
     setIsComplete(true);
+
     console.log("Complete");
   };
 
@@ -81,55 +101,13 @@ const HomeScreen = (props) => {
               style={styles.flatList}
               renderItem={({ item, index }) => (
                 <View key={index} style={styles.flatListContainer}>
-                  {isComplete ? (
-                    <Pressable
-                      style={styles.completeButton}
-                      onPress={() => {
-                        {
-                          completeTodo();
-                        }
-                      }}
-                    >
-                      <Text>
-                        <IconComponentProvider
-                          IconComponent={MaterialCommunityIcons}
-                        >
-                          <Icon name="check-underline" size={24} color="red" />
-                        </IconComponentProvider>
-                      </Text>
-                    </Pressable>
-                  ) : (
-                    <Pressable
-                      style={styles.completeButton}
-                      onPress={() => {
-                        {
-                          resetTodo();
-                        }
-                      }}
-                    >
-                      <Text>
-                        <IconComponentProvider
-                          IconComponent={MaterialCommunityIcons}
-                        >
-                          <Icon name="square-outline" size={24} color="red" />
-                        </IconComponentProvider>
-                      </Text>
-                    </Pressable>
-                  )}
-
-                  <Text
-                    style={
-                      isComplete ? styles.flatTextTrue : styles.flatTextFalse
-                    }
-                  >
-                    {item}
-                  </Text>
-
+                  <CompleteButton />
+                  <Text>{item}</Text>
                   <Pressable
                     style={styles.editButton}
                     onPress={() => {
                       {
-                        editTodo();
+                        setModalVisible(!modalVisible);
                       }
                     }}
                   >
@@ -158,6 +136,33 @@ const HomeScreen = (props) => {
                       </IconComponentProvider>
                     </Text>
                   </Pressable>
+                  <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                      Alert.alert("Modal has been closed.");
+                      setModalVisible(!modalVisible);
+                    }}
+                  >
+                    <View style={styles.centeredView}>
+                      <View style={styles.modalView}>
+                        <TextInput
+                          style={styles.inputText}
+                          //placeholder={item}
+                          placeholderTextColor="#0067B1"
+                          value={taskEdit}
+                          onChangeText={onChangeText}
+                        ></TextInput>
+                        <Pressable
+                          style={[styles.button, styles.buttonClose]}
+                          onPress={() => editTodo(props.todo.indexOf(item))}
+                        >
+                          <Text>Edit</Text>
+                        </Pressable>
+                      </View>
+                    </View>
+                  </Modal>
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}
