@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
+  keyboardContainer: {
     flex: 1,
+  },
+  container: {
+    height: "100%",
     backgroundColor: "#fff",
-    //alignItems: "center",
-    //justifyContent: "center",
   },
   inputContainer: {
     width: "90%",
@@ -20,9 +21,6 @@ const styles = StyleSheet.create({
     height: "60%",
     marginTop: "10%",
     flexDirection: "column",
-    //justifyContent: "flex-start",
-    //alignItems: "center",
-    //backgroundColor: "red",
   },
   flatListContainer: {
     width: "100%",
@@ -31,21 +29,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    //backgroundColor: "black",
   },
   flatList: {
     width: "100%",
     height: "45%",
-    //marginTop: "15%",
-    //flexDirection: "column",
-    //justifyContent: "flex-start",
-    //alignItems: "center",
-    //backgroundColor: "blue",
   },
   image: {
     flex: 1,
     alignItems: "center",
-    //justifyContent: "center",
   },
   headerText: {
     color: "black",
@@ -53,23 +44,31 @@ const styles = StyleSheet.create({
     lineHeight: 84,
     fontWeight: "bold",
     textAlign: "center",
-
-    backgroundColor: "yellow",
+    marginTop: -22,
+    marginBottom: -18,
+  },
+  highlight: {
+    marginTop: 30,
+    marginBottom: 10,
+    padding: 0,
+    backgroundColor: "#acd3d5",
+    transform: [{ rotate: "-5deg" }],
   },
   inputText: {
     width: "80%",
     height: "80%",
     fontSize: 20,
     fontWeight: "600",
-    marginTop: 4,
+    marginTop: 18,
+    marginLeft: 10,
     borderBottomWidth: 1.5,
   },
   addButton: {
     width: "20%",
-    height: "80%",
+    height: 40,
     backgroundColor: "#fff",
     borderWidth: 2,
-    borderColor: "#000",
+    borderColor: "#2d3436",
     borderRadius: 5,
   },
   deleteButton: {
@@ -78,7 +77,12 @@ const styles = StyleSheet.create({
   editButton: {
     backgroundColor: "#0067B1",
   },
-
+  addText: {
+    fontSize: 20,
+    textAlign: "center",
+    marginTop: 4,
+    color: "#2d3436",
+  },
   //--------Modal---------------//
   centeredView: {
     flex: 1,
@@ -87,6 +91,8 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
+    width: 300,
+    height: 300,
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,

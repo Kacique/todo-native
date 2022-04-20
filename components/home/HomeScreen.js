@@ -6,6 +6,8 @@ import {
   View,
   FlatList,
   Modal,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import { IconComponentProvider, Icon } from "@react-native-material/core";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -54,123 +56,113 @@ const HomeScreen = (props) => {
     props.setTodo(newTodo);
   };
 
-  const completeTodo = () => {
-    setIsComplete(false);
-    console.log("Complete");
-  };
-
-  const resetTodo = () => {
-    setIsComplete(true);
-
-    console.log("Complete");
-  };
-
   return (
-    <View style={styles.container}>
-      <ImageBackground
-        source={require("../../assets/background.png")}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <Text style={styles.headerText}>To-Do List</Text>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.inputText}
-            placeholder="Add Todo"
-            placeholderTextColor="#0067B1"
-            value={task}
-            onChangeText={(text) => setTask(text)}
-          ></TextInput>
-          <Pressable
-            style={styles.addButton}
-            onPress={() => {
-              addTask();
-            }}
-          >
-            <Text>
-              <IconComponentProvider IconComponent={MaterialCommunityIcons}>
-                <Icon name="plus-thick" size={24} color="red" />
-              </IconComponentProvider>
-            </Text>
-          </Pressable>
-        </View>
-        {isEmpty ? null : (
-          <View style={styles.listContainer}>
-            <FlatList
-              data={props.todo}
-              style={styles.flatList}
-              renderItem={({ item, index }) => (
-                <View key={index} style={styles.flatListContainer}>
-                  <CompleteButton />
-                  <Text>{item}</Text>
-                  <Pressable
-                    style={styles.editButton}
-                    onPress={() => {
-                      {
-                        setModalVisible(!modalVisible);
-                      }
-                    }}
-                  >
-                    <Text>
-                      <IconComponentProvider
-                        IconComponent={MaterialCommunityIcons}
-                      >
-                        <Icon name="pencil" size={24} color="red" />
-                      </IconComponentProvider>
-                    </Text>
-                  </Pressable>
-
-                  <Pressable
-                    style={styles.deleteButton}
-                    onPress={() => {
-                      {
-                        deleteTodo();
-                      }
-                    }}
-                  >
-                    <Text>
-                      <IconComponentProvider
-                        IconComponent={MaterialCommunityIcons}
-                      >
-                        <Icon name="trash-can" size={24} color="red" />
-                      </IconComponentProvider>
-                    </Text>
-                  </Pressable>
-                  <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => {
-                      Alert.alert("Modal has been closed.");
-                      setModalVisible(!modalVisible);
-                    }}
-                  >
-                    <View style={styles.centeredView}>
-                      <View style={styles.modalView}>
-                        <TextInput
-                          style={styles.inputText}
-                          //placeholder={item}
-                          placeholderTextColor="#0067B1"
-                          value={taskEdit}
-                          onChangeText={onChangeText}
-                        ></TextInput>
-                        <Pressable
-                          style={[styles.button, styles.buttonClose]}
-                          onPress={() => editTodo(props.todo.indexOf(item))}
-                        >
-                          <Text>Edit</Text>
-                        </Pressable>
-                      </View>
-                    </View>
-                  </Modal>
-                </View>
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
+    <KeyboardAvoidingView style={styles.keyboardContainer}>
+      <View style={styles.container}>
+        <ImageBackground
+          source={require("../../assets/background.jpg")}
+          resizeMode="cover"
+          style={styles.image}
+        >
+          <View style={styles.highlight}>
+            <Text style={styles.headerText}>To-Do List</Text>
           </View>
-        )}
-      </ImageBackground>
-    </View>
+
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.inputText}
+              placeholder="Add Todo"
+              placeholderTextColor="#2d3436"
+              value={task}
+              onChangeText={(text) => setTask(text)}
+            ></TextInput>
+            <Pressable
+              style={styles.addButton}
+              onPress={() => {
+                addTask();
+              }}
+            >
+              <Text style={styles.addText}>Add</Text>
+            </Pressable>
+          </View>
+          {isEmpty ? null : (
+            <View style={styles.listContainer}>
+              <FlatList
+                data={props.todo}
+                style={styles.flatList}
+                renderItem={({ item, index }) => (
+                  <View key={index} style={styles.flatListContainer}>
+                    <CompleteButton />
+                    <Text>{item}</Text>
+                    <Pressable
+                      style={styles.editButton}
+                      onPress={() => {
+                        {
+                          setModalVisible(!modalVisible);
+                        }
+                      }}
+                    >
+                      <Text>
+                        <IconComponentProvider
+                          IconComponent={MaterialCommunityIcons}
+                        >
+                          <Icon name="pencil" size={24} color="red" />
+                        </IconComponentProvider>
+                      </Text>
+                    </Pressable>
+
+                    <Pressable
+                      style={styles.deleteButton}
+                      onPress={() => {
+                        {
+                          deleteTodo();
+                        }
+                      }}
+                    >
+                      <Text>
+                        <IconComponentProvider
+                          IconComponent={MaterialCommunityIcons}
+                        >
+                          <Icon name="trash-can" size={24} color="red" />
+                        </IconComponentProvider>
+                      </Text>
+                    </Pressable>
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={modalVisible}
+                      onRequestClose={() => {
+                        Alert.alert("Modal has been closed.");
+                        setModalVisible(!modalVisible);
+                      }}
+                    >
+                      <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                          <TextInput
+                            style={styles.inputText}
+                            //placeholder={item}
+                            placeholderTextColor="#0067B1"
+                            value={taskEdit}
+                            onChangeText={onChangeText}
+                          ></TextInput>
+                          <Pressable
+                            style={[styles.button, styles.buttonClose]}
+                            onPress={() => editTodo(props.todo.indexOf(item))}
+                          >
+                            <Text>Edit</Text>
+                          </Pressable>
+                        </View>
+                      </View>
+                    </Modal>
+                  </View>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            </View>
+          )}
+        </ImageBackground>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -20,7 +20,7 @@ export default function App({ props }) {
               setTodo={setTodo}
               options={{
                 title: "Home",
-                headerStyle: { backgroundColor: "white" },
+                headerStyle: { backgroundColor: "#fff4b4" },
                 headerTitleAlign: "center",
               }}
             />
