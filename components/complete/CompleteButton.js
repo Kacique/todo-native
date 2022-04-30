@@ -1,6 +1,7 @@
-import { ImageBackground, Pressable, Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { IconComponentProvider, Icon } from "@react-native-material/core";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { AntDesign } from "@expo/vector-icons";
 import styles from "./styles";
 import { useState } from "react";
 
@@ -9,13 +10,10 @@ const CompleteButton = () => {
 
   const completeTodo = () => {
     setIsComplete(false);
-    console.log("Complete");
   };
 
   const resetTodo = () => {
     setIsComplete(true);
-
-    console.log("Complete");
   };
 
   return (
@@ -30,9 +28,7 @@ const CompleteButton = () => {
           }}
         >
           <Text>
-            <IconComponentProvider IconComponent={MaterialCommunityIcons}>
-              <Icon name="checkbox-intermediate" size={24} color="red" />
-            </IconComponentProvider>
+            <AntDesign name="checksquare" size={24} color="#2ecc71" />
           </Text>
         </Pressable>
       ) : (
@@ -46,7 +42,7 @@ const CompleteButton = () => {
         >
           <Text>
             <IconComponentProvider IconComponent={MaterialCommunityIcons}>
-              <Icon name="square-outline" size={24} color="red" />
+              <Icon name="square-outline" size={24} color="#2ecc71" />
             </IconComponentProvider>
           </Text>
         </Pressable>
@@ -56,9 +52,3 @@ const CompleteButton = () => {
 };
 
 export default CompleteButton;
-
-/**
- *  <Text style={isComplete ? styles.flatTextTrue : styles.flatTextFalse}>
-        {task}
-      </Text>
- */

@@ -8,14 +8,11 @@ const styles = StyleSheet.create({
   text: {
     marginLeft: 0,
   },
-  deleteButton: {
-    backgroundColor: "#0067B1",
-  },
-  editButton: {
-    backgroundColor: "#0067B1",
-  },
   completeButton: {
-    backgroundColor: "#0067B1",
+    backgroundColor: "#fff",
+    borderWidth: 1.5,
+    borderColor: "#2d3436",
+    borderRadius: 5,
   },
   flatTextTrue: {
     fontSize: 18,
